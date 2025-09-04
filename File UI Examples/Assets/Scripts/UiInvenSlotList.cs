@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +16,19 @@ public class UiInvenSlotList : MonoBehaviour
 
     private List<UiInvenSlot> slotList = new List<UiInvenSlot>();
     private List<SaveItemData> testItemList = new List<SaveItemData>();
+
+    public void Save()
+    {
+        var filePath = Path.Combine(Application.persistentDataPath, "test.json");
+        var jsonText = JsonConvert.SerializeObject(testItemList);
+        File.
+    }
+
+
+    private void Awake()
+    {
+
+    }
 
     private void Awake()
     {
