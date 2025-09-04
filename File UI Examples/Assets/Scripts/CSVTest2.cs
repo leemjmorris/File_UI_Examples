@@ -7,7 +7,6 @@ public class CSVTest2 : MonoBehaviour
 
     private void Start()
     {
-        var table = new ItemTable();
-        table.Load("ItemTable");
+
     }
 }

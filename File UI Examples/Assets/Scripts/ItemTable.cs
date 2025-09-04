@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using CsvHelper;
-using Mono.Cecil;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public enum ItemTypes
@@ -35,7 +32,7 @@ public class ItemData
 
 public class ItemTable : DataTable
 {
-    private  Dictionary<string, ItemData> table = new Dictionary<string, ItemData>();
+    private readonly Dictionary<string, ItemData> table = new Dictionary<string, ItemData>();
 
     public override void Load(string filename)
     {
@@ -54,14 +51,6 @@ public class ItemTable : DataTable
             {
                 Debug.LogError("아이템 아이디 중복!");
             }
-        }
-
-        foreach (var item in table)
-        {
-            var data = item.Value;
-            Debug.Log(data.StringName);
-            Debug.Log(data.StringDesc);
-            Debug.Log(data.SpriteIcon);
         }
     }
 

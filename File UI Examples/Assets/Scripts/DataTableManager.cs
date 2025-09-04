@@ -27,11 +27,9 @@ public static class DataTableManger
         tables.Add(DataTableIds.String, stringTable);
 #endif
 
-        var ItemTable = new ItemTable();
-        ItemTable.Load(DataTableIds.Item);
-        tables.Add(DataTableIds.Item, ItemTable);
-
-
+        var itemTable = new ItemTable();
+        itemTable.Load(DataTableIds.Item);
+        tables.Add(DataTableIds.Item, itemTable);
     }
 
     public static StringTable StringTable
@@ -50,11 +48,11 @@ public static class DataTableManger
         }
     }
 
-
     public static T Get<T>(string id) where T : DataTable
     {
         if (!tables.ContainsKey(id))
         {
+            Debug.LogError("테이블 없음");
             return null;
         }
         return tables[id] as T;

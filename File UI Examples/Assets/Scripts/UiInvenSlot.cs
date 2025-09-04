@@ -2,27 +2,26 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class UiInvenSlot : MonoBehaviour
 {
+    public int slotIndex { get; set; }
+
     public Image imageIcon;
     public TextMeshProUGUI textName;
-    public int slotIndex { get; set; }
-    
-    private SaveItemData itemData;
+
+    public SaveItemData ItemData { get; private set; }
 
     public void SetEmpty()
     {
+        ItemData = null;
         imageIcon.sprite = null;
         textName.text = string.Empty;
     }
 
     public void SetItem(SaveItemData data)
     {
-        itemData = data;
-        imageIcon.sprite = itemData.itemData.SpriteIcon;
-        textName.text = itemData.itemData.StringName;
+        ItemData = data;
+        imageIcon.sprite = ItemData.itemData.SpriteIcon;
+        textName.text = ItemData.itemData.StringName;
     }
-
-
 }
