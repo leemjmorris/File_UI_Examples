@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -42,20 +43,19 @@ public class SaveDataV2 : SaveData
     public override SaveData VersionUp()
     {
         var saveData = new SaveDataV3();
-        saveData.Name = Name;
-        saveData.Gold = Gold;
+        saveData.Items = new List<SaveItemData>();
         return saveData;
     }
 }
 
 public class SaveDataV3 : SaveData
 {
-    public string Name;
-    public int Gold;
+    public List<SaveItemData> Items;
 
     public SaveDataV3()
     {
         Version = 3;
+        Items = new List<SaveItemData>();
     }
 
     public override SaveData VersionUp()

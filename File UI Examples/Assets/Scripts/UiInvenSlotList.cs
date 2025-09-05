@@ -52,7 +52,7 @@ public class UiInvenSlotList : MonoBehaviour
 
     private List<UiInvenSlot> slotList = new List<UiInvenSlot>();
 
-    public int maxCount = 30;
+    public static int maxCount = 30;
 
     private List<SaveItemData> testItemList = new List<SaveItemData>();
 

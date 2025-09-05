@@ -7,7 +7,15 @@ public class SaveLoadTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SaveLoadManager.Data = new SaveDataV3();
-            SaveLoadManager.Data.Name = "TEST";
+
+            int maxCount = UiInvenSlotList.maxCount;
+
+            for (int i = 0; i < maxCount; i++)
+            {
+                var item = new SaveItemData();
+                item.itemData = DataTableManger.ItemTable.GetRandom();
+                SaveLoadManager.Data.Items.Add(item);
+            }
 
             SaveLoadManager.Save();
         }
@@ -16,7 +24,7 @@ public class SaveLoadTest : MonoBehaviour
         {
             SaveLoadManager.Load();
 
-            Debug.Log(SaveLoadManager.Data.Name);
+            Debug.Log(SaveLoadManager.Data.Items);
         }
     }
 }
