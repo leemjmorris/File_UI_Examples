@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class UiInvenSlotList : MonoBehaviour
 {
@@ -79,9 +80,6 @@ public class UiInvenSlotList : MonoBehaviour
 
     private int selectedSlotIndex = -1;
 
-    public UnityEvent onUpdateSlots;
-    public UnityEvent<SaveItemData> onSelectSlot;
-
     public void Save()
     {
         var jsonText = JsonConvert.SerializeObject(testItemList);
@@ -103,6 +101,7 @@ public class UiInvenSlotList : MonoBehaviour
 
     private void Awake()
     {
+
     }
 
     private void OnEnable()
@@ -113,6 +112,41 @@ public class UiInvenSlotList : MonoBehaviour
     private void OnDisable()
     {
         Save();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            AddRandomItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            RemoveItem();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Save();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Load();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            Sorting = (SortingOptions)Random.Range(0, 6);
+            Debug.Log(Sorting);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            Filtering = (FilteringOptions)Random.Range(0, 4);
+            Debug.Log(Filtering);
+        }
     }
 
     private void UpdateSlots(List<SaveItemData> itemList)
@@ -130,11 +164,7 @@ public class UiInvenSlotList : MonoBehaviour
                 newSlot.gameObject.SetActive(false);
 
                 var button = newSlot.GetComponent<Button>();
-                button.onClick.AddListener(() =>
-                {
-                    selectedSlotIndex = newSlot.slotIndex;
-                    onSelectSlot.Invoke(newSlot.ItemData);
-                });
+                button.onClick.AddListener(() => selectedSlotIndex = newSlot.slotIndex);
 
                 slotList.Add(newSlot);
             }
@@ -153,9 +183,6 @@ public class UiInvenSlotList : MonoBehaviour
                 slotList[i].gameObject.SetActive(false);
             }
         }
-
-        selectedSlotIndex = -1;
-        onUpdateSlots.Invoke();
     }
 
     public void AddRandomItem()
@@ -170,10 +197,10 @@ public class UiInvenSlotList : MonoBehaviour
     public void RemoveItem()
     {
         if (selectedSlotIndex == -1)
+        {
             return;
-
+        }
         testItemList.Remove(slotList[selectedSlotIndex].ItemData);
         UpdateSlots(testItemList);
     }
-
 }

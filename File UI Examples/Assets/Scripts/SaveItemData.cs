@@ -17,5 +17,4 @@ public class SaveItemData
         instanceId = Guid.NewGuid();
         creationTime = DateTime.Now;
     }
-
 }
