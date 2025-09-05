@@ -4,7 +4,7 @@ public class SaveLoadTest : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             SaveLoadManager.Data = new SaveDataV3();
 
@@ -14,17 +14,21 @@ public class SaveLoadTest : MonoBehaviour
             {
                 var item = new SaveItemData();
                 item.itemData = DataTableManger.ItemTable.GetRandom();
-                SaveLoadManager.Data.Items.Add(item);
+                SaveLoadManager.Data.ItemList.Add(item);
             }
-
             SaveLoadManager.Save();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
-            SaveLoadManager.Load();
-
-            Debug.Log(SaveLoadManager.Data.Items);
+            if (SaveLoadManager.Load())
+            {
+                Debug.Log($"Loaded {SaveLoadManager.Data.ItemList.Count} items");
+            }
+            else
+            {
+                Debug.LogError("Failed to load item data");
+            }
         }
     }
 }

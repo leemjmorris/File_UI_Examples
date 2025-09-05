@@ -4,8 +4,8 @@ using UnityEngine;
 
 [Serializable]
 public abstract class SaveData
-{
-    public int Version { get; protected set; }
+{ 
+    public int Version { get; protected set; } 
 
     public abstract SaveData VersionUp();
 }
@@ -13,7 +13,6 @@ public abstract class SaveData
 [Serializable]
 public class SaveDataV1 : SaveData
 {
-
     public string PlayerName { get; set; } = string.Empty;
 
     public SaveDataV1()
@@ -43,19 +42,21 @@ public class SaveDataV2 : SaveData
     public override SaveData VersionUp()
     {
         var saveData = new SaveDataV3();
-        saveData.Items = new List<SaveItemData>();
+        saveData.Name = Name;
+        saveData.Gold = Gold;
         return saveData;
     }
 }
 
 public class SaveDataV3 : SaveData
 {
-    public List<SaveItemData> Items;
+    public string Name { get; set; } = string.Empty;
+    public int Gold;
+    public List<SaveItemData> ItemList = new List<SaveItemData>();
 
     public SaveDataV3()
     {
         Version = 3;
-        Items = new List<SaveItemData>();
     }
 
     public override SaveData VersionUp()
